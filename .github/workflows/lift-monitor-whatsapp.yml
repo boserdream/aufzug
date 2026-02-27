@@ -66,7 +66,7 @@ jobs:
             "${EXTRA_ARGS[@]}"
 
       - name: Save current state
-        if: always()
+        if: ${{ always() && hashFiles('.cache/lift-monitor/state.json') != '' }}
         uses: actions/cache/save@v4
         with:
           path: .cache/lift-monitor/state.json
