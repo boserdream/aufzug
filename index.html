@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Radar Berlin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="dashboard">
+      <header class="hero">
+        <div class="hero__left">
+          <p class="eyebrow">Job Finder</p>
+          <h1>Job Radar Berlin</h1>
+          <p class="subtitle">Aktuelle Stellen nach Quelle gruppiert, inkl. Score, Ort und Link.</p>
+        </div>
+        <div class="hero__right">
+          <button id="reload" type="button">Neu laden</button>
+          <p id="lastUpdated">Letztes Update: -</p>
+        </div>
+      </header>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="status" id="status" aria-live="polite">Lade Stellenanzeigen ...</section>
+
+      <section id="sourceColumns" class="source-columns"></section>
+    </main>
+
+    <script type="module" src="./src/dashboard.js"></script>
+  </body>
+</html>

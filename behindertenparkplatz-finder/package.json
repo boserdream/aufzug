@@ -1,0 +1,6 @@
+{
+  "name": "behindertenparkplatz-finder-berlin",
+  "private": true,
+  "type": "module",
+  "main": "desktop-main.mjs"
+}

@@ -1,0 +1,27 @@
+{
+  "poll_interval_seconds": 300,
+  "notify_on_first_run": false,
+  "whatsapp": {
+    "enabled": true,
+    "provider": "callmebot",
+    "phone": "491724225450",
+    "apikey": "1269295"
+  },
+  "lifts": [
+    {
+      "id": "frankfurter-tor",
+      "name": "Frankfurter Tor",
+      "url": "https://www.brokenlifts.org/station/900120008"
+    },
+    {
+      "id": "zoologischer-garten",
+      "name": "Zoologischer Garten",
+      "url": "https://www.brokenlifts.org/station/900023201/274"
+    },
+    {
+      "id": "warschauer",
+      "name": "warschauer",
+      "url": "https://www.brokenlifts.org/station/900120004/508"
+    }
+  ]
+}

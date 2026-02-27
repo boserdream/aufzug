@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.moritz.scanrenamer</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/zsh</string>
+      <string>-lc</string>
+      <string>/usr/bin/python3 '/Users/moritz/Documents/New project/tools/scan_renamer.py' --scan-dir '/Users/moritz/Documents/wenndanndaort/Test' --ocr-pages 2</string>
+    </array>
+
+    <key>WatchPaths</key>
+    <array>
+      <string>/Users/moritz/Documents/wenndanndaort/Test</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/moritz/Library/Logs/scanrenamer.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/moritz/Library/Logs/scanrenamer-error.log</string>
+  </dict>
+</plist>

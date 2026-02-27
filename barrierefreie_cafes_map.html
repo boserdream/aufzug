@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barrierefreie Cafes nahe Liebigstrasse 2, Berlin</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <style>
+    :root {
+      --bg: #f7f4ed;
+      --panel: #fffdf8;
+      --text: #1f1f1f;
+      --accent: #0f766e;
+      --border: #d7d2c8;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 10% 0%, #fffaf0 0%, var(--bg) 60%);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 90%, #f5efe0);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      padding: 12px;
+      min-height: 0;
+    }
+
+    #map {
+      width: 100%;
+      min-height: 70vh;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    aside {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 12px;
+      overflow: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .place {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .place h2 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .place p {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      #map {
+        min-height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Barrierefreie Cafes rund um Liebigstrasse 2, 10247 Berlin</h1>
+    <p>Die Marker werden beim Laden per OpenStreetMap-Geocoding gesetzt.</p>
+  </header>
+  <main>
+    <div id="map" aria-label="Karte mit barrierefreien Cafes"></div>
+    <aside>
+      <div id="places"></div>
+    </aside>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    const startAddress = "Liebigstrasse 2, 10247 Berlin";
+    const places = [
+      {
+        name: "Cafe Tasso",
+        address: "Frankfurter Allee 11, 10247 Berlin",
+        note: "Barrierearm laut Berlin.de (Rampe vorhanden)",
+        mapsUrl: "https://www.google.com/maps/search/?api=1&query=Cafe+Tasso+Frankfurter+Allee+11+Berlin"
+      },
+      {
+        name: "Neumanns",
+        address: "Gabriel-Max-Strasse 18, 10245 Berlin",
+        note: "Als rollstuhlgerecht in OSM-basierten Daten markiert",
+        mapsUrl: "https://www.google.com/maps/search/?api=1&query=Neumanns+Gabriel-Max-Strasse+18+Berlin"
+      },
+      {
+        name: "Bagel & Friends",
+        address: "Wuehlischstrasse 58, 10245 Berlin",
+        note: "Als rollstuhlgerecht in OSM-basierten Daten markiert",
+        mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bagel+and+Friends+Wuehlischstrasse+58+Berlin"
+      },
+      {
+        name: "KaffeeKult",
+        address: "Revaler Strasse 99, 10245 Berlin",
+        note: "Als rollstuhlgerecht in OSM-basierten Daten markiert",
+        mapsUrl: "https://www.google.com/maps/search/?api=1&query=KaffeeKult+Revaler+Strasse+99+Berlin"
+      },
+      {
+        name: "Skatehalle Berlin (Cafe)",
+        address: "Revaler Strasse, 10245 Berlin",
+        note: "Als rollstuhlgerecht in OSM-basierten Daten markiert",
+        mapsUrl: "https://www.google.com/maps/search/?api=1&query=Skatehalle+Berlin+Cafe+Revaler+Strasse"
+      }
+    ];
+
+    const map = L.map("map", { zoomControl: true }).setView([52.511, 13.452], 14);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    async function geocode(query) {
+      const url = new URL("https://nominatim.openstreetmap.org/search");
+      url.searchParams.set("q", query);
+      url.searchParams.set("format", "json");
+      url.searchParams.set("limit", "1");
+      url.searchParams.set("countrycodes", "de");
+      const res = await fetch(url, {
+        headers: { "Accept": "application/json" }
+      });
+      if (!res.ok) throw new Error(`Geocoding fehlgeschlagen: ${query}`);
+      const data = await res.json();
+      if (!data.length) return null;
+      return [Number(data[0].lat), Number(data[0].lon)];
+    }
+
+    function addSidebarEntry(place) {
+      const wrapper = document.createElement("article");
+      wrapper.className = "place";
+      wrapper.innerHTML = `
+        <h2>${place.name}</h2>
+        <p>${place.address}</p>
+        <p>${place.note}</p>
+        <a href="${place.mapsUrl}" target="_blank" rel="noopener noreferrer">In Google Maps oeffnen</a>
+      `;
+      document.getElementById("places").appendChild(wrapper);
+    }
+
+    async function init() {
+      const bounds = [];
+
+      const start = await geocode(startAddress);
+      if (start) {
+        const marker = L.marker(start).addTo(map);
+        marker.bindPopup(`<strong>Startpunkt</strong><br>${startAddress}`);
+        bounds.push(start);
+      }
+
+      for (const place of places) {
+        addSidebarEntry(place);
+        try {
+          const coords = await geocode(`${place.name}, ${place.address}`);
+          if (!coords) continue;
+          bounds.push(coords);
+          const marker = L.circleMarker(coords, {
+            radius: 8,
+            color: "#0f766e",
+            fillColor: "#14b8a6",
+            fillOpacity: 0.8,
+            weight: 2
+          }).addTo(map);
+          marker.bindPopup(`
+            <strong>${place.name}</strong><br>
+            ${place.address}<br>
+            ${place.note}<br>
+            <a href="${place.mapsUrl}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+          `);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      if (bounds.length > 1) {
+        map.fitBounds(bounds, { padding: [30, 30] });
+      } else if (bounds.length === 1) {
+        map.setView(bounds[0], 15);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

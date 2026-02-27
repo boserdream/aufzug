@@ -1,0 +1,40 @@
+name: Daily Job Update Email
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      force_send:
+        description: "Send immediately (ignores 08:00 Europe/Berlin gate)"
+        required: false
+        default: "false"
+
+jobs:
+  send-job-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Send update email
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_USE_STARTTLS: ${{ secrets.SMTP_USE_STARTTLS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
+        run: |
+          python tools/job_finder/cloud_job_mailer.py \
+            --config tools/job_finder/job_profile.moritzfrisch.json \
+            --target-tz Europe/Berlin \
+            --target-hour 8 \
+            --workdir .

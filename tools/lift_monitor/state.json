@@ -1,0 +1,105 @@
+{
+  "lifts": {
+    "frankfurter-tor": {
+      "id": "frankfurter-tor",
+      "name": "Frankfurter Tor",
+      "url": "https://www.brokenlifts.org/station/900120008",
+      "status": "broken",
+      "details": "2 von 2 Aufzügen defekt",
+      "sub_lifts": [
+        {
+          "index": 1,
+          "status": "broken",
+          "details": "Der Aufzug im Bahnhof U Frankfurter Tor (Zwischenebene <> Bahnsteig) wird so schnell wie möglich repariert. (gemeldet am 27.02.2026, 03:40 Uhr) (Aufzug zwischen Zwischengeschoss Warschauer Str. und U-Bahnsteig)",
+          "url": "https://www.brokenlifts.org/station/900120008"
+        },
+        {
+          "index": 2,
+          "status": "broken",
+          "details": "Der Aufzug im Bahnhof U Frankfurter Tor (Straße <> Zwischenebene) wird so schnell wie möglich repariert. (gemeldet am 27.02.2026, 03:40 Uhr) (Aufzug zwischen Warschauer Str. und Zwischengeschoss Warschauer Str.)",
+          "url": "https://www.brokenlifts.org/station/900120008"
+        }
+      ],
+      "error": null,
+      "checked_at": "2026-02-27T19:58:22.497Z"
+    },
+    "zoologischer-garten": {
+      "id": "zoologischer-garten",
+      "name": "Zoologischer Garten",
+      "url": "https://www.brokenlifts.org/station/900023201/274",
+      "status": "broken",
+      "details": "2 von 6 Aufzügen defekt",
+      "sub_lifts": [
+        {
+          "index": 1,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen Bahnhofshalle und S-Bahnsteig Gl. 5 und 6)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        },
+        {
+          "index": 2,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen Bahnhofshalle (Gepäcktunnel) und Bahn-Regionalbahnsteig Gl. 1 und 2)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        },
+        {
+          "index": 3,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen Bahnhofshalle und Bahn-Regionalbahnsteig Gl. 3 und 4)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        },
+        {
+          "index": 4,
+          "status": "broken",
+          "details": "Der Aufzug im Bahnhof S+U Zoologischer Garten (Straße <> Zwischenebene / Bahnsteig U2 Richtung Ruhleben) wird so schnell wie möglich repariert. (gemeldet am 27.02.2026, 01:30 Uhr) (Aufzug zwischen Hardenbergplatz und Zwischengeschoss bzw. U-Bahnsteig U2 i. Ri. Ruhleben)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        },
+        {
+          "index": 5,
+          "status": "broken",
+          "details": "Der Aufzug im Bahnhof S+U Zoologischer Garten (Straße <> Bahnsteig U2 Richtung Pankow ) wird so schnell wie möglich repariert. (gemeldet am 27.02.2026, 18:50 Uhr) (Aufzug zwischen Hardenbergstr. / Joachimstaler Str. und U-Bahnsteig U2 i. Ri. Pankow)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        },
+        {
+          "index": 6,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen U-Bahnsteig U9 und und Zwischengeschoss bzw. U-Bahnsteig U2 i.Ri Ruhleben)",
+          "url": "https://www.brokenlifts.org/station/900023201"
+        }
+      ],
+      "error": null,
+      "checked_at": "2026-02-27T19:58:24.110Z"
+    },
+    "warschauer": {
+      "id": "warschauer",
+      "name": "warschauer",
+      "url": "https://www.brokenlifts.org/station/900120004/508",
+      "status": "broken",
+      "details": "1 von 3 Aufzügen defekt",
+      "sub_lifts": [
+        {
+          "index": 1,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen U-Bahnsteig / Fußgängerbrücke und Tamara-Danz-Str.)",
+          "url": "https://www.brokenlifts.org/station/900120004"
+        },
+        {
+          "index": 2,
+          "status": "broken",
+          "details": "Außer Betrieb (gemeldet am 27.02.2026, 11:50 Uhr) (Aufzug zwischen Empfangsgebäude und S-Bahnsteig Gl. 1+2)",
+          "url": "https://www.brokenlifts.org/station/900120004"
+        },
+        {
+          "index": 3,
+          "status": "working",
+          "details": "Der Aufzug steht zur Verfügung. (Aufzug zwischen Empfangsgebäude und S-Bahnsteig Gl. 3+4)",
+          "url": "https://www.brokenlifts.org/station/900120004"
+        }
+      ],
+      "error": null,
+      "checked_at": "2026-02-27T19:58:24.902Z"
+    }
+  },
+  "last_check_started_at": "2026-02-27T19:58:21.082Z",
+  "last_check_finished_at": "2026-02-27T19:58:24.902Z"
+}

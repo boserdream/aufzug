@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aufzugs-Monitor Berlin</title>
+    <link rel="icon" href="./assets/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Barrierefreiheit</p>
+          <h1>Aufzugs-Monitor Berlin</h1>
+          <p class="subline">Benachrichtigung bei Störung und Wiederinbetriebnahme deiner Aufzüge.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="checkNowBtn" class="btn btn-primary" type="button">Jetzt prüfen</button>
+          <p id="lastCheckInfo" class="meta">Letzte Prüfung: -</p>
+        </div>
+      </header>
+
+      <section class="panel controls">
+        <h2>Einstellungen</h2>
+        <div class="controls-row">
+          <label for="intervalMinutes">Prüfintervall (Minuten)</label>
+          <input id="intervalMinutes" type="number" min="1" step="1" />
+          <button id="saveIntervalBtn" class="btn" type="button">Speichern</button>
+        </div>
+      </section>
+
+      <section class="panel add-lift">
+        <h2>Aufzug hinzufügen</h2>
+        <form id="addLiftForm">
+          <label for="liftName">Name</label>
+          <input id="liftName" name="liftName" type="text" placeholder="z. B. S+U Alexanderplatz Gleis 2" required />
+          <label for="liftUrl">brokenlifts.org URL</label>
+          <input
+            id="liftUrl"
+            name="liftUrl"
+            type="url"
+            placeholder="https://www.brokenlifts.org/station/900100003/199"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Hinzufügen</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Deine Aufzüge</h2>
+        <p id="globalMessage" class="message" role="status" aria-live="polite"></p>
+        <div id="liftGrid" class="lift-grid"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>

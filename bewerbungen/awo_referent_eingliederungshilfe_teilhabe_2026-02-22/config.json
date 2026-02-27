@@ -1,0 +1,50 @@
+{
+  "output_dir": "/Users/moritz/Documents/New project/bewerbungen/awo_referent_eingliederungshilfe_teilhabe_2026-02-22",
+  "layout": {
+    "font": "Arial",
+    "size": 9.0,
+    "justify": true,
+    "line_spacing": 1.5
+  },
+  "applicant_lines": [
+    "Moritz Frisch",
+    "Liebigstraße 2",
+    "10247 Berlin",
+    "0172 4225450",
+    "moritzfrisch@gmx.net"
+  ],
+  "recipient_lines": [
+    "AWO Landesverband Berlin e.V.",
+    "z. Hd. Frau Izsak",
+    "Berlin"
+  ],
+  "date_line": "Berlin, 22. Februar 2026",
+  "subject": "Bewerbung als Referent Eingliederungshilfe und Teilhabe (w/m/d)",
+  "salutation": "Sehr geehrte Frau Izsak,",
+  "paragraphs": [
+    "die Weiterentwicklung einer inklusiven, sozial gerechten und solidarischen Gesellschaft ist für mich nicht nur fachliches Arbeitsfeld, sondern persönliche Haltung. Die ausgeschriebene Position als Referent für Eingliederungshilfe und Teilhabe beim AWO Landesverband Berlin verbindet fachpolitische Verantwortung, strategische Verbandsarbeit und konkrete Gestaltungsspielräume in idealer Weise – weshalb ich mich mit großer Motivation bewerbe.",
+    "Als Public Affairs Manager im Fachbereich Bildung arbeite ich an der Schnittstelle von Politik, Verwaltung und Zivilgesellschaft. Dabei analysiere ich gesetzliche und regulatorische Entwicklungen, begleite politische Prozesse und vertrete fachliche Positionen gegenüber Entscheidungsträger*innen. Die Koordination komplexer Abstimmungsprozesse sowie die Entwicklung belastbarer Positionierungen gehören zu meinem Kernaufgabenfeld. Dieses Erfahrungsprofil sehe ich als sehr anschlussfähig an die Gremien- und Verhandlungsarbeit im Kontext des Berliner Rahmenvertrages sowie des Integrierten Sozialprogramms.",
+    "Zuvor war ich in der politischen Bildung bei der Heinrich-Böll-Stiftung tätig und habe dort insbesondere zu strukturellen Fragen von Inklusion, gesellschaftlicher Teilhabe und Barrieren im System gearbeitet. Die Verbindung aus fachlicher Analyse, strategischer Netzwerkpflege und inhaltlicher Weiterentwicklung von Diskursen prägte meine Tätigkeit. Darüber hinaus war ich im HR-Bereich einer Universität beschäftigt und verfüge über vertiefte Kenntnisse hochschulischer Organisationsstrukturen, arbeitsrechtlicher Rahmenbedingungen sowie institutioneller Steuerungslogiken.",
+    "Durch meine berufliche Praxis sowie meine persönliche Perspektive als Rollstuhlfahrer kenne ich die Herausforderungen der Eingliederungshilfe nicht nur aus konzeptioneller Sicht, sondern auch aus der Erfahrung struktureller Barrieren im Alltag. Diese doppelte Perspektive – fachlich-analytisch und lebensweltlich – stärkt mein Verständnis für die Bedeutung einer konsequent umgesetzten Sozialen Teilhabe im Sinne des SGB IX.",
+    "Akademisch verfüge ich über einen Hintergrund in Interkultureller Wirtschaftspsychologie und Political Management. In meiner wissenschaftlichen Arbeit habe ich mich intensiv mit sozialer Mobilität, Meritokratie und gesellschaftlichen Leistungsnarrativen auseinandergesetzt. Daraus resultiert ein analytisches Verständnis sozialstaatlicher Steuerungsmechanismen sowie ein geschärfter Blick für Gerechtigkeitsfragen im Spannungsfeld von Selbstbestimmung, Teilhabe und Ressourcenzuweisung.",
+    "Die verbandliche Interessensvertretung, die fachbereichsübergreifende Koordination sowie die aktive Mitgestaltung politischer Diskurse im Land Berlin verstehe ich als strategische Aufgaben, die Fachkompetenz, diplomatisches Geschick und strukturiertes Arbeiten erfordern. Gerne möchte ich meine Erfahrung in politischer Analyse, Netzwerksteuerung und Positionierungsarbeit einbringen und gemeinsam mit Ihnen die Berliner AWO in diesem zentralen Handlungsfeld weiterentwickeln.",
+    "Über die Einladung zu einem persönlichen Gespräch freue ich mich sehr."
+  ],
+  "closing": "Mit freundlichen Grüßen",
+  "blank_line_before_name": true,
+  "name_line": "Moritz Frisch",
+  "cover_pdf": "Moritz_Frisch_Anschreiben_AWO_Eingliederungshilfe_Teilhabe.pdf",
+  "combined_pdf": "Moritz_Frisch_Bewerbung_AWO_Eingliederungshilfe_Teilhabe_vollstaendig.pdf",
+  "compact_pdf": "Moritz_Frisch_Bewerbung_AWO_Eingliederungshilfe_Teilhabe_kompakt.pdf",
+  "attachments_full": [
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/CV/CV_MoritzFrisch.pdf",
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/Zeugnisse/Zeugnisse_MoritzFrisch.pdf"
+  ],
+  "attachments_compact": [
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/CV/CV_MoritzFrisch.pdf"
+  ],
+  "email_to": "bewerbung@awoberlin.de",
+  "email_subject": "Bewerbung als Referent Eingliederungshilfe und Teilhabe",
+  "email_body": "Sehr geehrte Frau Izsak,\n\nanbei sende ich Ihnen meine Bewerbung als Referent Eingliederungshilfe und Teilhabe.\n\nIm Anhang finden Sie meine vollständigen Bewerbungsunterlagen als PDF.\n\nMit freundlichen Grüßen\nMoritz Frisch\n",
+  "email_attachment": "Moritz_Frisch_Bewerbung_AWO_Eingliederungshilfe_Teilhabe_vollstaendig.pdf"
+}

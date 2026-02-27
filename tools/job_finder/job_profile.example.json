@@ -1,0 +1,10 @@
+{
+  "keywordsMust": ["javascript", "typescript"],
+  "keywordsNice": ["node", "react", "backend"],
+  "excludeKeywords": ["praktikum", "intern", "principal"],
+  "locationsPreferred": ["germany", "berlin", "remote", "europe"],
+  "remoteOnly": false,
+  "minimumScore": 4,
+  "maxResults": 25,
+  "lookbackDays": 14
+}

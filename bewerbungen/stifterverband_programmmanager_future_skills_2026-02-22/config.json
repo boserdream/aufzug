@@ -1,0 +1,38 @@
+{
+  "output_dir": "/Users/moritz/Documents/New project/bewerbungen/stifterverband_programmmanager_future_skills_2026-02-22",
+  "layout": {
+    "font": "Arial",
+    "size": 10,
+    "justify": true,
+    "margin": 86,
+    "line_spacing": 5.0
+  },
+  "applicant_lines": [
+    "Moritz Frisch",
+    "Liebigstraße 2",
+    "10247 Berlin",
+    "0172 4225450",
+    "moritzfrisch@gmx.net"
+  ],
+  "recipient_lines": [
+    "Stifterverband für die Deutsche Wissenschaft e.V.",
+    "Programmbereich Future Skills & KI",
+    "10178 Berlin"
+  ],
+  "date_line": "Berlin, 22. Februar 2026",
+  "subject": "Bewerbung als Programmmanager (m/w/d) Future Skills & KI – AI Literacy in der Lehrkräftebildung",
+  "salutation": "Sehr geehrte Damen und Herren,",
+  "paragraphs": [
+    "die strategische Verankerung von AI Literacy in der Lehrkräftebildung ist aus meiner Sicht eine zentrale Zukunftsaufgabe im föderalen Bildungssystem. Sie erfordert analytische Tiefe, ein belastbares Verständnis politischer Steuerungslogiken sowie die Fähigkeit, technologische Entwicklungen in institutionelle Bildungsstrukturen zu übersetzen. Als Public Affairs Manager im Fachbereich Bildung arbeite ich genau an dieser Schnittstelle von Politik, Verwaltung, Wissenschaft und Zivilgesellschaft – weshalb mich die ausgeschriebene Position im Programmbereich Future Skills & KI in besonderem Maße anspricht.",
+    "In meiner aktuellen Funktion analysiere ich politische und regulatorische Rahmenbedingungen im Bildungsbereich, identifiziere strategische Handlungsoptionen und entwickle anschlussfähige Positionierungen gegenüber politischen Entscheidungsträgern und institutionellen Partnern. Der Aufbau und die Pflege belastbarer Netzwerke sowie die strukturierte Aufbereitung komplexer Sachverhalte gehören dabei zu meinem täglichen Aufgabenfeld. Ich bewege mich sicher im Mehrebenensystem zwischen Bund, Ländern, Hochschulen und zivilgesellschaftlichen Akteuren.",
+    "Zudem verfüge ich über fundierte Kenntnisse im Bereich Künstliche Intelligenz und deren bildungspolitische Implikationen. Ich setze mich kontinuierlich mit aktuellen Entwicklungen generativer KI, Fragen algorithmischer Steuerung, Kompetenzmodellen für AI Literacy sowie regulatorischen Debatten auseinander. Dabei interessiert mich insbesondere, wie technologische Innovationen in nachhaltige Kompetenzstrukturen überführt werden können.",
+    "Zuvor war ich in der politischen Bildung bei der Heinrich-Böll-Stiftung tätig und arbeitete dort insbesondere zu strukturellen Fragen von Inklusion und gesellschaftlicher Teilhabe. Neben der Projektkoordination verantwortete ich Monitoringprozesse sowie die konzeptionelle Weiterentwicklung von Austauschformaten. Meine Tätigkeit im HR-Bereich einer Universität ergänzt diese Perspektive um vertiefte Kenntnisse hochschulischer Organisationsstrukturen und institutioneller Steuerungslogiken.",
+    "Akademisch verfüge ich über einen interdisziplinären Hintergrund in Interkultureller Wirtschaftspsychologie und Political Management. In meiner wissenschaftlichen Arbeit habe ich mich vertieft mit sozialer Mobilität, Meritokratie und gesellschaftlichen Vorstellungen von Leistung auseinandergesetzt. Die Analyse von Leistungsnarrativen und deren politische Anschlussfähigkeit prägt mein Verständnis von Bildungsreformen bis heute. Analytische Präzision, methodische Sorgfalt sowie die Fähigkeit, komplexe Zusammenhänge klar und strategisch zu strukturieren, kennzeichnen meine Arbeitsweise.",
+    "Die Erstellung einer bundesweiten Übersicht zu AI-Literacy-Fortbildungen, die Analyse länderspezifischer Rahmenbedingungen sowie die Zusammenarbeit mit datenbasierten Einheiten verstehe ich als strategischen Beitrag zur systematischen Kompetenzentwicklung in der Lehrkräftebildung. Gerne möchte ich meine Erfahrung in der politischen Kontextanalyse, im Netzwerkaufbau und in der evidenzbasierten Programmarbeit in Ihr Team einbringen und die Weiterentwicklung von Future Skills im Bildungssystem aktiv mitgestalten.",
+    "Über die Gelegenheit zu einem persönlichen Gespräch freue ich mich sehr."
+  ],
+  "closing": "Mit freundlichen Grüßen",
+  "blank_line_before_name": true,
+  "name_line": "Moritz Frisch",
+  "cover_pdf": "Moritz_Frisch_Anschreiben_Stifterverband_Programmmanager_FutureSkills.pdf"
+}

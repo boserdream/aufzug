@@ -1,0 +1,43 @@
+{
+  "output_dir": "/Users/moritz/Documents/New project/bewerbungen/gemeinde_muehltal_studentische_aushilfe_2026-02-21",
+  "layout": {"font": "Arial", "size": 10, "justify": true},
+  "applicant_lines": [
+    "Moritz Frisch",
+    "Liebigstraße 2",
+    "10247 Berlin",
+    "moritzfrisch@gmx.net"
+  ],
+  "recipient_lines": [
+    "Gemeinde Mühltal",
+    "Fachbereich Familie und Soziales",
+    "Ober-Ramstädter Straße 2-4",
+    "64367 Mühltal"
+  ],
+  "date_line": "Berlin, 21. Februar 2026",
+  "subject": "Bewerbung als Studentische Aushilfe (m/w/d) in den gemeindlichen Kinderbetreuungseinrichtungen",
+  "salutation": "Sehr geehrte Frau Merten,",
+  "paragraphs": [
+    "mit großem Interesse habe ich Ihre Ausschreibung für studentische Aushilfen in den gemeindlichen Kinderbetreuungseinrichtungen gelesen. Die unterstützende Arbeit im pädagogischen Alltag, insbesondere die Begleitung von Kindern in einer verlässlichen und wertschätzenden Umgebung, spricht mich sehr an.",
+    "Ich bringe eine ausgeprägte Verantwortungsbereitschaft, Teamfähigkeit und eine strukturierte Arbeitsweise mit. In meinen bisherigen beruflichen Stationen habe ich gelernt, auch in dynamischen Situationen ruhig, zugewandt und verlässlich zu handeln. Besonders wichtig ist mir ein respektvoller Umgang mit Kindern, Eltern und Kolleg*innen sowie die Bereitschaft, im Team mitanzupacken.",
+    "Durch meine Erfahrung in organisatorischen und kommunikativen Aufgabenfeldern kann ich Ihr pädagogisches Team im Alltag zuverlässig unterstützen – bei Ausflügen, Projekten und Festen ebenso wie bei der alltäglichen Begleitung der Kinder und bei anfallenden unterstützenden Tätigkeiten in der Gruppe. Ich arbeite sorgfältig, aufmerksam und mit hoher Verbindlichkeit.",
+    "Ich freue mich darauf, meine Motivation und meine persönliche Eignung in Ihre Einrichtungen einzubringen und Kinder im Alltag empathisch und verantwortungsvoll zu begleiten."
+  ],
+  "closing": "Mit freundlichen Grüßen",
+  "blank_line_before_name": true,
+  "name_line": "Moritz Frisch",
+  "signature_path": "signatur_moritz.png",
+  "cover_pdf": "Moritz_Frisch_Anschreiben_Gemeinde_Muehltal.pdf",
+  "combined_pdf": "Moritz_Frisch_Bewerbung_Gemeinde_Muehltal_vollstaendig.pdf",
+  "compact_pdf": "Moritz_Frisch_Bewerbung_Gemeinde_Muehltal_kompakt.pdf",
+  "attachments_full": [
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/CV/CV_MoritzFrisch.pdf",
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/Zeugnisse/Zeugnisse_MoritzFrisch.pdf"
+  ],
+  "attachments_compact": [
+    "/Users/moritz/Documents/Arbeit/Bewerbungen/CV/CV_MoritzFrisch.pdf"
+  ],
+  "email_to": "info@muehltal.de",
+  "email_subject": "Bewerbung als Studentische Aushilfe (m/w/d) – Moritz Frisch",
+  "email_body": "Sehr geehrte Frau Merten,\n\nanbei übersende ich Ihnen meine Bewerbungsunterlagen zur Stelle als studentische Aushilfe (m/w/d) in den gemeindlichen Kinderbetreuungseinrichtungen.\n\nMit freundlichen Grüßen\nMoritz Frisch\nmoritzfrisch@gmx.net\n",
+  "email_attachment": "Moritz_Frisch_Bewerbung_Gemeinde_Muehltal_vollstaendig.pdf"
+}

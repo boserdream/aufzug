@@ -1,0 +1,258 @@
+:root {
+  --bg: #f1f4e6;
+  --bg-accent: radial-gradient(circle at 20% 20%, #ffda6f 0%, transparent 40%),
+    radial-gradient(circle at 85% 10%, #6ec7c4 0%, transparent 35%), #f1f4e6;
+  --panel: #ffffff;
+  --text: #1d2a2b;
+  --muted: #5a6a6b;
+  --primary: #0d8f7a;
+  --primary-strong: #0a725f;
+  --danger: #cb354f;
+  --ok: #1f9d5b;
+  --unknown: #8a6c00;
+  --error: #a5266a;
+  --shadow: 0 14px 38px rgba(20, 42, 44, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: var(--text);
+  background: var(--bg-accent);
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1100px, 96vw);
+  margin: 22px auto;
+  display: grid;
+  gap: 16px;
+}
+
+.hero {
+  background: linear-gradient(125deg, #0e3e46, #14525e 40%, #146870);
+  color: #f4fff9;
+  border-radius: 24px;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+h1 {
+  margin: 6px 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1;
+}
+
+.subline {
+  margin: 0;
+  color: #d7f3ed;
+}
+
+.hero-actions {
+  text-align: right;
+}
+
+.meta {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: #d6f9f2;
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+
+h2 {
+  margin-top: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.6rem;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+label {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #b7c6c8;
+  font-size: 0.95rem;
+  min-height: 42px;
+}
+
+#intervalMinutes {
+  width: 120px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.btn {
+  border: 0;
+  background: #dfe7e8;
+  color: #173233;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(0.97);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #f8fffc;
+}
+
+.btn-primary:hover {
+  background: var(--primary-strong);
+}
+
+.lift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.lift-card {
+  background: linear-gradient(160deg, #f7fbfb, #f2f7f7);
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid #d8e4e5;
+  display: grid;
+  gap: 10px;
+}
+
+.lift-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lift-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.badge {
+  align-self: start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: #203637;
+  background: #e6eded;
+  border: 1px solid #c4d4d6;
+}
+
+.details,
+.url,
+.checked {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.mini-lifts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mini-lift {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #1f3536;
+  background: #edf2f3;
+  border: 1px solid #ccdadc;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.mini-symbol {
+  min-width: 1em;
+  text-align: center;
+  line-height: 1;
+}
+
+.mini-index {
+  min-width: 1.1em;
+  text-align: center;
+}
+
+.url a {
+  color: #0f6a70;
+  text-decoration: none;
+}
+
+.url a:hover {
+  text-decoration: underline;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-delete {
+  background: #f7d6de;
+  color: #7e1e34;
+}
+
+.message {
+  margin-top: -4px;
+  margin-bottom: 10px;
+  min-height: 1.2em;
+  color: #294546;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .hero-actions {
+    text-align: left;
+  }
+
+  .app-shell {
+    width: min(1100px, 95vw);
+  }
+}

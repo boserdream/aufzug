@@ -1,0 +1,55 @@
+name: Lift Monitor WhatsApp
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without sending WhatsApp"
+        required: false
+        default: "false"
+
+jobs:
+  lift-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Restore previous state
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/lift-monitor/state.json
+          key: lift-monitor-state-${{ github.run_id }}
+          restore-keys: |
+            lift-monitor-state-
+
+      - name: Run cloud lift monitor
+        env:
+          WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
+          WHATSAPP_APIKEY: ${{ secrets.WHATSAPP_APIKEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          mkdir -p .cache/lift-monitor
+          CONFIG_PATH="tools/lift_monitor/config.json"
+          if [ ! -f "${CONFIG_PATH}" ]; then
+            CONFIG_PATH="tools/lift_monitor/config.example.json"
+          fi
+          python tools/lift_monitor/cloud_lift_whatsapp.py \
+            --config "${CONFIG_PATH}" \
+            --state-file .cache/lift-monitor/state.json \
+            $( [ "${DRY_RUN}" = "true" ] && echo "--dry-run" )
+
+      - name: Save current state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/lift-monitor/state.json
+          key: lift-monitor-state-${{ github.run_id }}

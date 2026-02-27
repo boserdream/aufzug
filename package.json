@@ -1,0 +1,20 @@
+{
+  "name": "cineby-beamer-player",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "main.mjs",
+  "scripts": {
+    "start": "electron .",
+    "start:url": "CINEBY_URL=https://cineby.app electron .",
+    "parking:desktop": "electron ./behindertenparkplatz-finder",
+    "lift:desktop": "electron ./lift-monitor",
+    "test": "node --test",
+    "notion:dashboard": "node tools/notion/create_dashboard.mjs",
+    "jobs:find": "node tools/job_finder/job_finder.mjs --config tools/job_finder/job_profile.moritzfrisch.json",
+    "jobs:find:example": "node tools/job_finder/job_finder.mjs --config tools/job_finder/job_profile.example.json"
+  },
+  "devDependencies": {
+    "electron": "^34.2.0"
+  }
+}
