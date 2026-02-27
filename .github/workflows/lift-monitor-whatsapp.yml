@@ -9,6 +9,14 @@ on:
         description: "Run without sending WhatsApp"
         required: false
         default: "false"
+      test_message:
+        description: "Optional WhatsApp test message"
+        required: false
+        default: ""
+      test_only:
+        description: "Only send test message and skip status check"
+        required: false
+        default: "false"
 
 jobs:
   lift-monitor:
@@ -36,16 +44,26 @@ jobs:
           WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
           WHATSAPP_APIKEY: ${{ secrets.WHATSAPP_APIKEY }}
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          TEST_MESSAGE: ${{ github.event.inputs.test_message || '' }}
+          TEST_ONLY: ${{ github.event.inputs.test_only || 'false' }}
         run: |
           mkdir -p .cache/lift-monitor
           CONFIG_PATH="tools/lift_monitor/config.json"
           if [ ! -f "${CONFIG_PATH}" ]; then
             CONFIG_PATH="tools/lift_monitor/config.example.json"
           fi
+          EXTRA_ARGS=()
+          if [ -n "${TEST_MESSAGE}" ]; then
+            EXTRA_ARGS+=(--test-message "${TEST_MESSAGE}")
+          fi
+          if [ "${TEST_ONLY}" = "true" ]; then
+            EXTRA_ARGS+=(--test-only)
+          fi
           python tools/lift_monitor/cloud_lift_whatsapp.py \
             --config "${CONFIG_PATH}" \
             --state-file .cache/lift-monitor/state.json \
-            $( [ "${DRY_RUN}" = "true" ] && echo "--dry-run" )
+            $( [ "${DRY_RUN}" = "true" ] && echo "--dry-run" ) \
+            "${EXTRA_ARGS[@]}"
 
       - name: Save current state
         if: always()

@@ -29,6 +29,8 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--config", required=True, help="JSON config with lifts")
     ap.add_argument("--state-file", required=True, help="Path to persisted state JSON")
     ap.add_argument("--dry-run", action="store_true", help="Do not call WhatsApp API")
+    ap.add_argument("--test-message", default="", help="Send a WhatsApp test message")
+    ap.add_argument("--test-only", action="store_true", help="Only send test message and exit")
     return ap.parse_args()
 
 
@@ -193,16 +195,26 @@ def build_message(name: str, status: str, details: str, source_url: str, sub_cha
 
 def main() -> int:
     args = parse_args()
-    config = read_json(Path(args.config), default={})
-    lifts = config.get("lifts", [])
-    if not lifts:
-        print("No lifts configured.")
-        return 2
-
     phone = os.getenv("WHATSAPP_PHONE", "").strip()
     apikey = os.getenv("WHATSAPP_APIKEY", "").strip()
     if not phone or not apikey:
         print("Missing WHATSAPP_PHONE or WHATSAPP_APIKEY.")
+        return 2
+
+    if args.test_message.strip():
+        test_text = f"Aufzugs-Monitor Cloud Test\n{args.test_message.strip()}"
+        if args.dry_run:
+            print(f"[DRY] Would send WhatsApp test:\n{test_text}")
+        else:
+            send_whatsapp(phone, apikey, test_text)
+            print("WhatsApp test message sent.")
+        if args.test_only:
+            return 0
+
+    config = read_json(Path(args.config), default={})
+    lifts = config.get("lifts", [])
+    if not lifts:
+        print("No lifts configured.")
         return 2
 
     state_path = Path(args.state_file)
