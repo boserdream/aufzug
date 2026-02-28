@@ -144,10 +144,15 @@ def compose_body(now_local: datetime, jobs: list[dict], stdout_text: str, stderr
         ("GoodJobs", "🟧", "GoodJobs", 5),
     ]
 
+    def age_for_sort(job: dict) -> int:
+        age = job.get("ageDays")
+        return age if isinstance(age, int) else 9999
+
     for source_key, emoji, label, max_items in sections:
         lines.append(f"{emoji} {label} (max. {max_items})")
         lines.append("=" * len(lines[-1]))
-        subset = [j for j in jobs if str(j.get("source") or "").lower() == source_key.lower()][:max_items]
+        subset = [j for j in jobs if str(j.get("source") or "").lower() == source_key.lower()]
+        subset = sorted(subset, key=lambda j: (age_for_sort(j), -float(j.get("score") or 0.0)))[:max_items]
         if not subset:
             lines.append("Keine Treffer.")
             lines.append("")

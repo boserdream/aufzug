@@ -778,6 +778,20 @@ function filterRemote(jobs, remoteOnly) {
   return remoteOnly ? jobs.filter((j) => j.remote) : jobs;
 }
 
+function ageForSort(job) {
+  const age = Number(job?.ageDays);
+  return Number.isFinite(age) ? age : 9999;
+}
+
+function sortNewestFirst(jobs) {
+  return [...jobs].sort((a, b) => {
+    const ageA = ageForSort(a);
+    const ageB = ageForSort(b);
+    if (ageA !== ageB) return ageA - ageB;
+    return Number(b.score || 0) - Number(a.score || 0);
+  });
+}
+
 function applySourceCaps(sortedJobs, maxResults) {
   const caps = new Map([
     ['stepstone', 10],
@@ -818,22 +832,9 @@ function fillSourceQuotas(scoredAll, selected, maxResults) {
   const usedUrls = new Set(selected.map((j) => canonicalUrl(j.url) || `${norm(j.title)}|${norm(j.company)}`));
   const out = [...selected];
 
-  const ageForSort = (job) => {
-    const age = Number(job?.ageDays);
-    return Number.isFinite(age) ? age : 9999;
-  };
-
   const sourceCandidates = new Map();
   for (const [source] of quotas.entries()) {
-    const pool = scoredAll
-      .filter((j) => norm(j.source) === source)
-      .sort((a, b) => {
-        // Newer jobs first, then stronger score.
-        const ageA = ageForSort(a);
-        const ageB = ageForSort(b);
-        if (ageA !== ageB) return ageA - ageB;
-        return Number(b.score || 0) - Number(a.score || 0);
-      });
+    const pool = sortNewestFirst(scoredAll.filter((j) => norm(j.source) === source));
     sourceCandidates.set(source, pool);
   }
 
@@ -1007,9 +1008,14 @@ async function main() {
 
   const scoredSorted = remoteFiltered
     .map((job) => scoreJob(job, config))
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => {
+      const ageA = ageForSort(a);
+      const ageB = ageForSort(b);
+      if (ageA !== ageB) return ageA - ageB;
+      return Number(b.score || 0) - Number(a.score || 0);
+    });
   const scoredQualified = scoredSorted.filter((job) => job.score >= config.minimumScore);
-  const cappedQualified = applySourceCaps(scoredQualified, Number(config.maxResults || 45));
+  const cappedQualified = applySourceCaps(sortNewestFirst(scoredQualified), Number(config.maxResults || 45));
   const ranked = fillSourceQuotas(scoredSorted, cappedQualified, Number(config.maxResults || 45));
 
   console.log(`Quellen: Arbeitnow=${aJobs.length}, Remotive=${rJobs.length}, GesinesJobtipps=${gJobsEnriched.length}, Interamt=${iJobs.length}, BundService=${bJobs.length}, BMWK=${bmwkJobs.length}, BMG=${bmgJobs.length}, BMI=${bmiJobs.length}, BMBFSFJ=${bmbfsfjJobs.length}, BMDS=${bmdsJobs.length}, BMF=${bmfJobs.length}, StepStone=${sJobsEnriched.length}, StudySmarter=${ssJobs.length}, KarriereportalBerlin=${kpbJobs.length}, Arbeitsagentur=${baJobs.length}, LinkedInJobs=${liJobs.length}, GoodJobs=${goodJobs.length}`);
