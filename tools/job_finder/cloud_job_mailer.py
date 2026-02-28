@@ -75,10 +75,18 @@ def send_mail(subject: str, body: str, smtp_host: str, smtp_port: int, smtp_user
         smtp.send_message(msg)
 
 
-def require_env(name: str) -> str:
-    val = os.getenv(name, "").strip()
+def first_env(*names: str) -> str:
+    for name in names:
+        val = os.getenv(name, "").strip()
+        if val:
+            return val
+    return ""
+
+
+def require_any_env(*names: str) -> str:
+    val = first_env(*names)
     if not val:
-        raise RuntimeError(f"Missing required env var: {name}")
+        raise RuntimeError(f"Missing required env var (one of): {', '.join(names)}")
     return val
 
 
@@ -106,12 +114,12 @@ def main() -> int:
 
     subject = f"Daily Job Update Berlin/Potsdam - {now_local.strftime('%Y-%m-%d %H:%M %Z')}"
 
-    smtp_host = require_env("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
-    smtp_user = os.getenv("SMTP_USERNAME", "")
-    smtp_password = os.getenv("SMTP_PASSWORD", "")
-    mail_from = require_env("MAIL_FROM")
-    mail_to = require_env("MAIL_TO")
+    smtp_host = require_any_env("SMTP_HOST", "SMTP_SERVER")
+    smtp_port = int(first_env("SMTP_PORT", "SMTP_SERVER_PORT") or "587")
+    smtp_user = first_env("SMTP_USERNAME", "SMTP_USER")
+    smtp_password = first_env("SMTP_PASSWORD", "SMTP_PASS")
+    mail_from = require_any_env("MAIL_FROM", "EMAIL_FROM")
+    mail_to = require_any_env("MAIL_TO", "EMAIL_TO")
     use_starttls = strtobool(os.getenv("SMTP_USE_STARTTLS", "true"))
 
     send_mail(

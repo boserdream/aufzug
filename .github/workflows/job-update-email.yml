@@ -24,13 +24,13 @@ jobs:
 
       - name: Send update email
         env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          SMTP_USE_STARTTLS: ${{ secrets.SMTP_USE_STARTTLS }}
-          MAIL_FROM: ${{ secrets.MAIL_FROM }}
-          MAIL_TO: ${{ secrets.MAIL_TO }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST || vars.SMTP_HOST || secrets.SMTP_SERVER || vars.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || vars.SMTP_PORT || secrets.SMTP_SERVER_PORT || vars.SMTP_SERVER_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME || vars.SMTP_USERNAME || secrets.SMTP_USER || vars.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD || vars.SMTP_PASSWORD || secrets.SMTP_PASS || vars.SMTP_PASS }}
+          SMTP_USE_STARTTLS: ${{ secrets.SMTP_USE_STARTTLS || vars.SMTP_USE_STARTTLS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM || vars.MAIL_FROM || secrets.EMAIL_FROM || vars.EMAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO || vars.MAIL_TO || secrets.EMAIL_TO || vars.EMAIL_TO }}
           FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
         run: |
           python tools/job_finder/cloud_job_mailer.py \
