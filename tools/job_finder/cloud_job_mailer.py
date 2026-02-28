@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import json
 import os
 import smtplib
 import subprocess
@@ -23,8 +24,8 @@ def should_send_now(target_tz: str, target_hour: int, force_send: bool) -> tuple
 
 def run_finder(config_path: str, out_md: Path, out_json: Path) -> tuple[int, str, str]:
     cmd = [
-        sys.executable,
-        "tools/job_finder/job_finder.py",
+        os.getenv("NODE_BIN", "node"),
+        "tools/job_finder/job_finder.mjs",
         "--config",
         config_path,
         "--out",
@@ -36,24 +37,82 @@ def run_finder(config_path: str, out_md: Path, out_json: Path) -> tuple[int, str
     return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
 
 
-def compose_body(now_local: datetime, md_text: str, stdout_text: str, stderr_text: str) -> str:
+def published_text(job: dict) -> str:
+    age = job.get("ageDays")
+    if isinstance(age, int) and age >= 0 and age != 9999:
+        return f"vor {age} Tagen"
+    raw = str(job.get("publishedAt") or "").strip()
+    if not raw:
+        return "unbekannt"
+    try:
+        d = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        delta = (datetime.now(d.tzinfo) - d).days
+        if delta >= 0:
+            return f"vor {delta} Tagen"
+    except Exception:
+        pass
+    return "unbekannt"
+
+
+def reason_text(job: dict) -> str:
+    reasons = job.get("reasons") or []
+    if isinstance(reasons, list) and reasons:
+        clean = [str(r).strip() for r in reasons if str(r).strip()]
+        if clean:
+            return f"Ausgewählt wegen Profil-Match: {', '.join(clean)}."
+    return "Ausgewählt, weil die Aufgaben gut zu deinem Profil passen."
+
+
+def compose_body(now_local: datetime, jobs: list[dict], stdout_text: str, stderr_text: str) -> str:
     lines = [
-        "Daily Job Update",
-        f"Stand: {now_local.strftime('%Y-%m-%d %H:%M %Z')}",
+        "📬 Daily Job Update Berlin/Potsdam",
+        f"🕒 Stand: {now_local.strftime('%d.%m.%Y %H:%M %Z')}",
         "",
     ]
-    if stdout_text:
-        lines.append("Run-Summary:")
-        lines.extend(stdout_text.splitlines()[:30])
-        lines.append("")
+
+    sections = [
+        ("StepStone", "🟦", "StepStone", 10),
+        ("StudySmarter", "🟧", "StudySmarter", 10),
+        ("GesinesJobtipps", "🟩", "Gesine", 10),
+        ("Interamt", "🟨", "Interamt", 5),
+        ("KarriereportalBerlin", "🟧", "Karriereportal Berlin", 5),
+        ("Arbeitsagentur", "🟧", "Arbeitsagentur", 5),
+        ("GoodJobs", "🟧", "GoodJobs", 5),
+    ]
+
+    for source_key, emoji, label, max_items in sections:
+        lines.append(f"{emoji} {label} (max. {max_items})")
+        lines.append("=" * len(lines[-1]))
+        subset = [j for j in jobs if str(j.get("source") or "").lower() == source_key.lower()][:max_items]
+        if not subset:
+            lines.append("Keine Treffer.")
+            lines.append("")
+            continue
+        for idx, j in enumerate(subset, 1):
+            lines.extend(
+                [
+                    f"{idx}. {str(j.get('title') or 'Ohne Titel')}",
+                    f"   📍 Ort: {str(j.get('location') or 'unbekannt')}",
+                    f"   🏢 Arbeitgeber: {str(j.get('company') or 'unbekannt')}",
+                    f"   🗓️ Veröffentlicht: {published_text(j)}",
+                    "   ⏳ Bewerbungsfrist: unbekannt",
+                    f"   ✅ Warum passt es: {reason_text(j)}",
+                    f"   🔗 Link: {str(j.get('url') or '')}",
+                    "",
+                    "   ------------------------------------------------------------",
+                    "",
+                ]
+            )
+
     if stderr_text:
-        lines.append("Warnungen:")
-        lines.extend(stderr_text.splitlines()[:30])
+        lines.append("⚠️ Warnungen:")
+        lines.extend(stderr_text.splitlines()[:20])
         lines.append("")
-    if md_text:
-        lines.append(md_text)
-    else:
-        lines.append("Keine Treffer oder keine Ausgabe erzeugt.")
+    if stdout_text:
+        lines.append("📄 Run-Summary:")
+        lines.extend(stdout_text.splitlines()[:20])
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -109,8 +168,13 @@ def main() -> int:
     out_json = Path("/tmp/jobfinder_cloud_jobs.json")
 
     code, stdout_text, stderr_text = run_finder(args.config, out_md, out_json)
-    md_text = out_md.read_text(encoding="utf-8") if out_md.exists() else ""
-    body = compose_body(now_local, md_text, stdout_text, stderr_text)
+    jobs = []
+    if out_json.exists():
+        try:
+            jobs = json.loads(out_json.read_text(encoding="utf-8"))
+        except Exception:
+            jobs = []
+    body = compose_body(now_local, jobs, stdout_text, stderr_text)
 
     subject = f"Daily Job Update Berlin/Potsdam - {now_local.strftime('%Y-%m-%d %H:%M %Z')}"
 
