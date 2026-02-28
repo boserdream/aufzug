@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import re
 import smtplib
 import subprocess
 import sys
@@ -63,6 +64,69 @@ def reason_text(job: dict) -> str:
     return "Ausgewählt, weil die Aufgaben gut zu deinem Profil passen."
 
 
+def normalize_location(value) -> str:
+    def _clean(s: str) -> str:
+        return re.sub(r"\s+", " ", str(s or "").strip())
+
+    if isinstance(value, dict):
+        addr = value.get("address") or value
+        if isinstance(addr, dict):
+            parts = [
+                addr.get("streetAddress"),
+                addr.get("postalCode"),
+                addr.get("addressLocality"),
+                addr.get("addressRegion"),
+                addr.get("addressCountry"),
+            ]
+            parts = [_clean(p) for p in parts if _clean(p)]
+            seen = set()
+            out = []
+            for p in parts:
+                k = p.lower()
+                if k in seen:
+                    continue
+                seen.add(k)
+                out.append(p)
+            return ", ".join(out)
+        return _clean(str(value))
+
+    if isinstance(value, list):
+        parts = [normalize_location(v) for v in value]
+        parts = [p for p in parts if p]
+        return ", ".join(parts)
+
+    s = _clean(str(value or ""))
+    if not s:
+        return ""
+    if s.startswith("{") and s.endswith("}"):
+        try:
+            return normalize_location(json.loads(s))
+        except Exception:
+            fields = []
+            for pat in [
+                r'"streetAddress"\s*:\s*"([^"]+)"',
+                r'"postalCode"\s*:\s*"([^"]+)"',
+                r'"addressLocality"\s*:\s*"([^"]+)"',
+                r'"addressRegion"\s*:\s*"([^"]+)"',
+                r'"addressCountry"\s*:\s*"([^"]+)"',
+            ]:
+                m = re.search(pat, s)
+                if m:
+                    fields.append(_clean(m.group(1)))
+            if fields:
+                seen = set()
+                out = []
+                for f in fields:
+                    k = f.lower()
+                    if k in seen:
+                        continue
+                    seen.add(k)
+                    out.append(f)
+                return ", ".join(out)
+            return "unbekannt"
+    return s
+
+
 def compose_body(now_local: datetime, jobs: list[dict], stdout_text: str, stderr_text: str) -> str:
     lines = [
         "📬 Daily Job Update Berlin/Potsdam",
@@ -89,10 +153,11 @@ def compose_body(now_local: datetime, jobs: list[dict], stdout_text: str, stderr
             lines.append("")
             continue
         for idx, j in enumerate(subset, 1):
+            location = normalize_location(j.get("location")) or "unbekannt"
             lines.extend(
                 [
                     f"{idx}. {str(j.get('title') or 'Ohne Titel')}",
-                    f"   📍 Ort: {str(j.get('location') or 'unbekannt')}",
+                    f"   📍 Ort: {location}",
                     f"   🏢 Arbeitgeber: {str(j.get('company') or 'unbekannt')}",
                     f"   🗓️ Veröffentlicht: {published_text(j)}",
                     "   ⏳ Bewerbungsfrist: unbekannt",
