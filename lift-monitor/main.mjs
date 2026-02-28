@@ -141,6 +141,13 @@ function stripHtmlTags(input) {
     .trim();
 }
 
+function normalizeTextKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
 function parseStationSlides(rawHtml, stationUrl) {
   const slideRegex =
     /<li\b([^>]*)>\s*<section class="slider-head">[\s\S]*?<section class="anlagen-description">([\s\S]*?)<\/section>[\s\S]*?<section class="anlagen-history">/g;
@@ -164,6 +171,7 @@ function parseStationSlides(rawHtml, stationUrl) {
 
     results.push({
       index: results.length + 1,
+      key: normalizeTextKey(directionText) || `idx:${results.length + 1}`,
       status,
       details: directionText ? `${infoText} (${directionText})` : infoText || "Unbekannter Status",
       url: stationUrl
@@ -195,6 +203,7 @@ function parseLiftEntriesFromStationHtml(rawHtml, stationUrl) {
     if (directionKey) seenDirections.add(directionKey);
     results.push({
       index: results.length + 1,
+      key: normalizeTextKey(direction) || `idx:${results.length + 1}`,
       status: mapStatusPhraseToStatus(phrase),
       details: direction ? `${phrase} (${direction})` : phrase,
       url: stationUrl
@@ -210,6 +219,7 @@ function parseLiftEntriesFromStationHtml(rawHtml, stationUrl) {
     const phrase = (fallbackMatch[1] || "").trim();
     fallbacks.push({
       index: fallbacks.length + 1,
+      key: `idx:${fallbacks.length + 1}`,
       status: mapStatusPhraseToStatus(phrase),
       details: phrase,
       url: stationUrl
@@ -311,13 +321,16 @@ function statusSymbol(status) {
 function collectBinarySubLiftChanges(previousSubLifts, nextSubLifts) {
   const prevMap = new Map();
   for (const item of Array.isArray(previousSubLifts) ? previousSubLifts : []) {
-    prevMap.set(Number(item.index), item.status);
+    const idx = Number(item.index);
+    const key = item.key || `idx:${idx}`;
+    prevMap.set(key, item.status);
   }
 
   const changes = [];
   for (const item of Array.isArray(nextSubLifts) ? nextSubLifts : []) {
     const idx = Number(item.index);
-    const prev = prevMap.get(idx);
+    const key = item.key || `idx:${idx}`;
+    const prev = prevMap.get(key);
     const next = item.status;
     const isBinary = (value) => value === "working" || value === "broken";
     if (isBinary(prev) && isBinary(next) && prev !== next) {

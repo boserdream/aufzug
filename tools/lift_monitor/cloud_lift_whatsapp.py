@@ -71,6 +71,10 @@ def strip_html_tags(value: str) -> str:
     return html.unescape(re.sub(r"\s+", " ", no_tags)).strip()
 
 
+def normalize_text_key(value: str) -> str:
+    return re.sub(r"\s+", " ", (value or "").strip().lower())
+
+
 def map_status_phrase_to_status(phrase: str) -> str:
     if (
         BROKEN_MARKER in phrase
@@ -122,6 +126,7 @@ def parse_station_slides(raw_html: str, station_url: str) -> list[dict[str, Any]
         items.append(
             {
                 "index": len(items) + 1,
+                "key": normalize_text_key(direction_text) or f"idx:{len(items) + 1}",
                 "status": status,
                 "details": details,
                 "url": station_url,
@@ -158,11 +163,17 @@ def binary_status(status: str) -> bool:
 
 
 def collect_sub_lift_changes(prev: list[dict[str, Any]], nxt: list[dict[str, Any]]) -> list[str]:
-    prev_map = {int(x.get("index", 0)): x.get("status") for x in prev}
+    prev_map: dict[str, dict[str, Any]] = {}
+    for item in prev:
+        key = str(item.get("key") or f"idx:{int(item.get('index', 0))}")
+        prev_map[key] = item
+
     changes: list[str] = []
     for item in nxt:
         idx = int(item.get("index", 0))
-        prev_status = prev_map.get(idx)
+        key = str(item.get("key") or f"idx:{idx}")
+        prev_item = prev_map.get(key)
+        prev_status = prev_item.get("status") if prev_item else None
         new_status = item.get("status")
         if binary_status(prev_status) and binary_status(new_status) and prev_status != new_status:
             changes.append(f"Aufzug {idx}: {status_symbol(prev_status)} -> {status_symbol(new_status)}")
