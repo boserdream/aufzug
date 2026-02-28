@@ -118,8 +118,10 @@ def main() -> int:
     smtp_port = int(first_env("SMTP_PORT", "SMTP_SERVER_PORT") or "587")
     smtp_user = first_env("SMTP_USERNAME", "SMTP_USER")
     smtp_password = first_env("SMTP_PASSWORD", "SMTP_PASS")
-    mail_from = require_any_env("MAIL_FROM", "EMAIL_FROM")
-    mail_to = require_any_env("MAIL_TO", "EMAIL_TO")
+    mail_from = first_env("MAIL_FROM", "EMAIL_FROM", "SMTP_USERNAME", "SMTP_USER")
+    if not mail_from:
+        raise RuntimeError("Missing required env var (one of): MAIL_FROM, EMAIL_FROM, SMTP_USERNAME, SMTP_USER")
+    mail_to = first_env("MAIL_TO", "EMAIL_TO", mail_from)
     use_starttls = strtobool(os.getenv("SMTP_USE_STARTTLS", "true"))
 
     send_mail(
