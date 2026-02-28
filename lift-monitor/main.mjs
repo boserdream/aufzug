@@ -318,6 +318,10 @@ function statusSymbol(status) {
   return "!";
 }
 
+function isBinaryStatus(value) {
+  return value === "working" || value === "broken";
+}
+
 function collectBinarySubLiftChanges(previousSubLifts, nextSubLifts) {
   const prevMap = new Map();
   for (const item of Array.isArray(previousSubLifts) ? previousSubLifts : []) {
@@ -439,7 +443,13 @@ async function checkAllLifts() {
       const subLiftChanges = previous
         ? collectBinarySubLiftChanges(previous.sub_lifts, nextEntry.sub_lifts)
         : [];
-      const relevantChange = changed || subLiftChanges.length > 0;
+      const binaryStationChange = Boolean(
+        previous &&
+          isBinaryStatus(previous.status) &&
+          isBinaryStatus(nextEntry.status) &&
+          changed
+      );
+      const relevantChange = binaryStationChange || subLiftChanges.length > 0;
       if (relevantChange && (notifyOnFirstRun || previous)) {
         await notifyChange(config, lift, nextEntry.status, nextEntry.details, subLiftChanges);
       }

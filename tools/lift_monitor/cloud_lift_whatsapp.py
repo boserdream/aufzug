@@ -249,9 +249,14 @@ def main() -> int:
             prev_entry = stations.get(station_id)
             prev_status = (prev_entry or {}).get("status")
             prev_sub = (prev_entry or {}).get("sub_lifts", [])
-            changed = prev_status is not None and prev_status != status
+            binary_station_change = (
+                prev_status is not None
+                and binary_status(str(prev_status))
+                and binary_status(str(status))
+                and prev_status != status
+            )
             sub_changes = collect_sub_lift_changes(prev_sub, sub_lifts) if prev_entry else []
-            relevant = changed or bool(sub_changes)
+            relevant = binary_station_change or bool(sub_changes)
 
             stations[station_id] = {
                 "name": name,
